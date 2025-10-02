@@ -1,11 +1,12 @@
 import { FC, useEffect, useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { IpersonalDetails } from "../../helper/interface";
 
 interface Iprops {
   currentStep: number;
-  setCurrentStep: (number: number) => void;
+  setCurrentStep: Dispatch<SetStateAction<number>>;
 }
 
 const PersonalDetails: FC<Iprops> = ({ currentStep, setCurrentStep }) => {

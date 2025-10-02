@@ -1,10 +1,11 @@
 import { FC, useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import { SubmitHandler, useFieldArray, useForm } from "react-hook-form";
 import { Icertificate } from "../../helper/interface";
 
 interface Iprops {
   currentStep: number;
-  setCurrentStep: (number: number) => void;
+  setCurrentStep: Dispatch<SetStateAction<number>>;
 }
 
 interface IformData {

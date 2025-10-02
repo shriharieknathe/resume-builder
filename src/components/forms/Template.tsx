@@ -1,10 +1,11 @@
 import { FC, useState, useEffect } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import { Link } from "react-router-dom";
 import template1 from "../../assets/templates/template1.png";
 
 interface Iprops {
   currentStep: number;
-  setCurrentStep: (number: number) => void;
+  setCurrentStep: Dispatch<SetStateAction<number>>;
 }
 
 const Template: FC<Iprops> = ({ currentStep, setCurrentStep }) => {

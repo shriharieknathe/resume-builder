@@ -1,10 +1,11 @@
 import { FC } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { IsocialLinks } from "../../helper/interface";
 
 interface Iprops {
   currentStep: number;
-  setCurrentStep: (number: number) => void;
+  setCurrentStep: Dispatch<SetStateAction<number>>;
 }
 
 const SocialLinks: FC<Iprops> = ({ currentStep, setCurrentStep }) => {

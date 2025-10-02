@@ -1,4 +1,6 @@
+/* eslint-disable react/no-array-index-key */
 import { FC, useState } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import {
   Controller,
   SubmitHandler,
@@ -9,7 +11,7 @@ import { IworkExperience } from "../../helper/interface";
 
 interface Iprops {
   currentStep: number;
-  setCurrentStep: (number: number) => void;
+  setCurrentStep: Dispatch<SetStateAction<number>>;
 }
 
 interface IformData {
@@ -117,7 +119,7 @@ const WorkExperience: FC<Iprops> = ({ currentStep, setCurrentStep }) => {
 
             {/* if user has experience */}
             <div className="flex flex-wrap items-stretch self-stretch justify-center gap-5 px-2 lg:px-0">
-              {fields.map((works: any, worksIndex) => (
+              {fields.map((works, worksIndex) => (
                 <div
                   key={works.id}
                   className="relative flex flex-col justify-between w-full p-2 space-y-3 rounded-md shadow-md lg:p-4 md:w-96"
@@ -143,7 +145,7 @@ const WorkExperience: FC<Iprops> = ({ currentStep, setCurrentStep }) => {
                           message: "Please enter a valid company name",
                         },
                       }}
-                      render={({ field }: any) => (
+                      render={({ field }) => (
                         <label
                           htmlFor={`workExperience.${worksIndex}.companyName`}
                           className="text-sm font-semibold lg:text-base"
@@ -181,14 +183,13 @@ const WorkExperience: FC<Iprops> = ({ currentStep, setCurrentStep }) => {
                           message: "Please enter a valid designation",
                         },
                       }}
-                      render={({ field }: any) => (
+                      render={({ field }) => (
                         <label
                           className="text-sm font-semibold lg:text-base"
                           htmlFor={`workExperience.${worksIndex}.designation`}
                         >
                           Job Role
                           <input
-                            name={`workExperience.${worksIndex}.designation`}
                             {...field}
                             placeholder="Use chatGPT for better description"
                             id={`workExperience.${worksIndex}.designation`}
@@ -214,7 +215,7 @@ const WorkExperience: FC<Iprops> = ({ currentStep, setCurrentStep }) => {
                           message: "Please enter the joining date",
                         },
                       }}
-                      render={({ field }: any) => (
+                      render={({ field }) => (
                         <label
                           htmlFor={`workExperience.${worksIndex}.startDuration`}
                           className="text-sm font-semibold lg:text-base"
@@ -222,6 +223,11 @@ const WorkExperience: FC<Iprops> = ({ currentStep, setCurrentStep }) => {
                           From (Joining Date)
                           <input
                             {...field}
+                            value={
+                              field.value
+                                ? field.value.toString().split("T")[0]
+                                : ""
+                            }
                             type="date"
                             id={`workExperience.${worksIndex}.startDuration`}
                             className={`px-2 py-1 mt-1 border-2 w-full font-normal ${
@@ -246,7 +252,7 @@ const WorkExperience: FC<Iprops> = ({ currentStep, setCurrentStep }) => {
                           message: "Please enter the sepration date",
                         },
                       }}
-                      render={({ field }: any) => (
+                      render={({ field }) => (
                         <label
                           htmlFor={`workExperience.${worksIndex}.endDuration`}
                           className="text-sm font-semibold lg:text-base"
@@ -254,6 +260,11 @@ const WorkExperience: FC<Iprops> = ({ currentStep, setCurrentStep }) => {
                           To (Sepration Date)
                           <input
                             {...field}
+                            value={
+                              field.value
+                                ? field.value.toString().split("T")[0]
+                                : ""
+                            }
                             type="date"
                             id={`workExperience.${worksIndex}.endDuration`}
                             className={`px-2 py-1 mt-1 border-2 w-full font-normal ${
@@ -300,13 +311,16 @@ const WorkExperience: FC<Iprops> = ({ currentStep, setCurrentStep }) => {
 
                       {/* for displaying all the work done */}
                       {Array.isArray(works?.workDone) &&
-                        works.workDone.map((work: any, workIndex: number) => (
-                          <section key={work?.id} className="w-full">
+                        works.workDone.map((work, workIndex: number) => (
+                          <section
+                            key={`work-${worksIndex}-item-${workIndex}`}
+                            className="w-full"
+                          >
                             <Controller
                               name={`workExperience.${worksIndex}.workDone.${workIndex}`}
                               control={control}
                               defaultValue=""
-                              render={({ field }: any) => (
+                              render={({ field }) => (
                                 <div className="flex items-center w-full">
                                   <label
                                     className="w-full text-sm font-semibold lg:text-base"

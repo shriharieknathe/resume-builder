@@ -1,4 +1,6 @@
+/* eslint-disable react/no-array-index-key */
 import { FC } from "react";
+import type { Dispatch, SetStateAction } from "react";
 import {
   Controller,
   SubmitHandler,
@@ -10,7 +12,7 @@ import { Iproject } from "../../helper/interface";
 
 interface Iprops {
   currentStep: number;
-  setCurrentStep: (number: number) => void;
+  setCurrentStep: Dispatch<SetStateAction<number>>;
 }
 
 interface IformData {
@@ -102,7 +104,7 @@ const Projects: FC<Iprops> = ({ currentStep, setCurrentStep }) => {
 
         {/* mapping the projects data to display */}
         <div className="flex flex-wrap items-center justify-center gap-5 px-2 md:px-0">
-          {fields.map((project: any, projectIndex) => (
+          {fields.map((project, projectIndex) => (
             <div
               key={project.id}
               className="flex flex-col self-start w-full p-2 space-y-3 rounded-md shadow-md lg:p-4 md:w-96"
@@ -125,7 +127,7 @@ const Projects: FC<Iprops> = ({ currentStep, setCurrentStep }) => {
                     message: "Please enter a valid project name",
                   },
                 }}
-                render={({ field }: any) => (
+                render={({ field }) => (
                   <label
                     htmlFor={`projects.${projectIndex}.projectName`}
                     className="text-sm font-semibold lg:text-base"
@@ -162,7 +164,7 @@ const Projects: FC<Iprops> = ({ currentStep, setCurrentStep }) => {
                     message: "Please enter a valid project description",
                   },
                 }}
-                render={({ field }: any) => (
+                render={({ field }) => (
                   <label
                     className="text-sm font-semibold lg:text-base"
                     htmlFor={`projects.${projectIndex}.projectDescription`}
@@ -217,75 +219,75 @@ const Projects: FC<Iprops> = ({ currentStep, setCurrentStep }) => {
                 {/* for displaying all the tech stacks */}
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   {Array.isArray(project?.projectTechnology) &&
-                    project.projectTechnology.map(
-                      (tech: any, techIndex: number) => (
-                        <section key={tech?.id}>
-                          <Controller
-                            name={`projects.${projectIndex}.projectTechnology.${techIndex}`}
-                            control={control}
-                            defaultValue=""
-                            render={({ field }: any) => (
-                              <div className="flex items-center w-fit">
-                                <label
-                                  className="text-sm font-semibold lg:text-base"
-                                  htmlFor={`projects.${projectIndex}.projectTechnology.${techIndex}`}
-                                >
-                                  <div className="flex items-center">
-                                    <input
-                                      id={`projects.${projectIndex}.projectTechnology.${techIndex}`}
-                                      {...field}
-                                      placeholder="Tech"
-                                      className={`px-2 py-1 mt-1 border-2 font-normal w-[4.3rem] peer ${
-                                        errors?.projects &&
-                                        errors?.projects[projectIndex]
-                                          ?.projectTechnology &&
-                                        errors.projects[projectIndex]
-                                          ?.projectTechnology?.[techIndex]
-                                          ?.message
-                                          ? "focus:outline-red-500"
-                                          : "focus:outline-teal-600"
-                                      }`}
-                                    />
-                                    {/* button to remove tech */}
-                                    <button
-                                      className={`h-full px-2 py-1 mt-1 font-bold text-red-500 border-2 border-l-0 border-gray-300 ${
-                                        errors?.projects &&
-                                        errors?.projects[projectIndex]
-                                          ?.projectTechnology &&
-                                        errors.projects[projectIndex]
-                                          ?.projectTechnology?.[techIndex]
-                                          ?.message
-                                          ? "peer-focus:border-red-500"
-                                          : "peer-focus:border-teal-600"
-                                      } hover:text-red-600 w-fit`}
-                                      type="button"
-                                      onClick={() =>
-                                        removeTech(projectIndex, techIndex)
-                                      }
+                    project.projectTechnology.map((tech, techIndex: number) => (
+                      <section
+                        key={`project-${projectIndex}-tech-${techIndex}`}
+                      >
+                        <Controller
+                          name={`projects.${projectIndex}.projectTechnology.${techIndex}`}
+                          control={control}
+                          defaultValue=""
+                          render={({ field }) => (
+                            <div className="flex items-center w-fit">
+                              <label
+                                className="text-sm font-semibold lg:text-base"
+                                htmlFor={`projects.${projectIndex}.projectTechnology.${techIndex}`}
+                              >
+                                <div className="flex items-center">
+                                  <input
+                                    id={`projects.${projectIndex}.projectTechnology.${techIndex}`}
+                                    {...field}
+                                    placeholder="Tech"
+                                    className={`px-2 py-1 mt-1 border-2 font-normal w-[4.3rem] peer ${
+                                      errors?.projects &&
+                                      errors?.projects[projectIndex]
+                                        ?.projectTechnology &&
+                                      errors.projects[projectIndex]
+                                        ?.projectTechnology?.[techIndex]
+                                        ?.message
+                                        ? "focus:outline-red-500"
+                                        : "focus:outline-teal-600"
+                                    }`}
+                                  />
+                                  {/* button to remove tech */}
+                                  <button
+                                    className={`h-full px-2 py-1 mt-1 font-bold text-red-500 border-2 border-l-0 border-gray-300 ${
+                                      errors?.projects &&
+                                      errors?.projects[projectIndex]
+                                        ?.projectTechnology &&
+                                      errors.projects[projectIndex]
+                                        ?.projectTechnology?.[techIndex]
+                                        ?.message
+                                        ? "peer-focus:border-red-500"
+                                        : "peer-focus:border-teal-600"
+                                    } hover:text-red-600 w-fit`}
+                                    type="button"
+                                    onClick={() =>
+                                      removeTech(projectIndex, techIndex)
+                                    }
+                                  >
+                                    <svg
+                                      xmlns="http://www.w3.org/2000/svg"
+                                      fill="none"
+                                      viewBox="0 0 24 24"
+                                      strokeWidth="1.5"
+                                      stroke="currentColor"
+                                      className="w-5 h-5 lg:w-6 lg:h-6"
                                     >
-                                      <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                        strokeWidth="1.5"
-                                        stroke="currentColor"
-                                        className="w-5 h-5 lg:w-6 lg:h-6"
-                                      >
-                                        <path
-                                          strokeLinecap="round"
-                                          strokeLinejoin="round"
-                                          d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                                        />
-                                      </svg>
-                                    </button>
-                                  </div>
-                                </label>
-                              </div>
-                            )}
-                          />
-                        </section>
-                      ),
-                    )}
+                                      <path
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                        d="M9.75 9.75l4.5 4.5m0-4.5l-4.5 4.5M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                                      />
+                                    </svg>
+                                  </button>
+                                </div>
+                              </label>
+                            </div>
+                          )}
+                        />
+                      </section>
+                    ))}
                 </div>
               </div>
 

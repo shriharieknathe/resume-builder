@@ -3,7 +3,8 @@ import { jsPDF as JsPDF } from "jspdf";
 import html2canvas from "html2canvas";
 
 interface UsePdfDownloadResult {
-  generatePDF: (content: HTMLElement) => void;
+  /* eslint-disable-next-line no-unused-vars */
+  generatePDF: (_content: HTMLElement) => void;
   pdfData: Blob | null;
   resetPdfData: () => void;
   isGenerating: boolean;

@@ -74,9 +74,7 @@ const Preview = () => {
       {/* Shrihari */}
 
       {/* for showing the resume preview */}
-      <div ref={report}>
-        <Template1 data={data!} />
-      </div>
+      <div ref={report}>{data ? <Template1 data={data} /> : null}</div>
 
       {/* for download and go back button */}
       <div className="flex items-center justify-center gap-5">
