@@ -33,7 +33,7 @@ All the used images are taken from the [freepik website](https://www.freepik.com
 
 ## Check Project
 
-[Visit the Website](https://resume-builder-harvi.netlify.app/)
+[Visit the Website](https://sse-resume-builder.netlify.app/)
 
 ## Conclusion
 
